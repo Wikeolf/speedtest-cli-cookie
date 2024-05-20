@@ -31,6 +31,7 @@ type Server struct {
 	GetIPURL    string `json:"getIpURL"`
 	SponsorName string `json:"sponsorName"`
 	SponsorURL  string `json:"sponsorURL"`
+	Cookie		string `json:"Cookie"`
 
 	NoICMP bool         `json:"-"`
 	TLog   TelemetryLog `json:"-"`
@@ -217,6 +218,7 @@ func (s *Server) Download(silent bool, useBytes, useMebi bool, requests int, chu
 	req.URL.RawQuery = q.Encode()
 	req.Header.Set("User-Agent", UserAgent)
 	req.Header.Set("Accept-Encoding", "identity")
+	req.Header.Set("Cookie", s.Cookie)
 
 	downloadDone := make(chan struct{}, requests)
 

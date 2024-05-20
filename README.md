@@ -18,6 +18,7 @@ This is a command line interface for LibreSpeed speed test backends, written in 
 - Test with multiple servers in a single run
 - Use your own server list or telemetry endpoints
 - Tested with PHP and Go backends
+- Request with the Cookie you specify
 
 [![asciicast](https://asciinema.org/a/J17bUAilWI3qR12JyhfGvPwu2.svg)](https://asciinema.org/a/J17bUAilWI3qR12JyhfGvPwu2)
 
@@ -217,7 +218,8 @@ locally via `--local-json`). The format is as below:
     "dlURL": "garbage.php",
     "ulURL": "empty.php",
     "pingURL": "empty.php",
-    "getIpURL": "getIP.php"
+    "getIpURL": "getIP.php",
+    "Cookie": "ckName=ckValue"
   },
   {
     "id": 2,
@@ -227,6 +229,7 @@ locally via `--local-json`). The format is as below:
     "ulURL": "empty",
     "pingURL": "empty",
     "getIpURL": "getIP"
+    // or no Cookie
   }
 ]
 ```
@@ -234,6 +237,10 @@ locally via `--local-json`). The format is as below:
 The `--local-json` option can also read from `stdin`:
 
 `echo '[{"id": 1,"name": "a","server": "https://speedtest.example.com/","dlURL": "garbage.php","ulURL": "empty.php","pingURL": "empty.php","getIpURL": "getIP.php"}]' | librespeed-cli --local-json - `
+
+Server with Cookie read from `stdin` :
+
+`echo '[{"id": 1,"name": "a","server": "https://speedtest.example.com/","dlURL": "garbage.php","ulURL": "empty.php","pingURL": "empty.php","getIpURL": "getIP.php", "Cookie": "ckName=ckValue"}]' | librespeed-cli --local-json - `
 
 As you can see in the example, all servers have their schemes defined. In case of undefined scheme (e.g. `//example.com`),
 `librespeed-cli` will use `http` by default, or `https` when the `--secure` option is enabled.
